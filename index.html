@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Buying Guide — AI Expert System</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Outfit', 'sans-serif'] } } }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS injected via main.js ?raw import to bypass Vite transform -->
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
+
+    <!-- Background glows -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div class="glow-orb glow-purple"></div>
+        <div class="glow-orb glow-cyan"></div>
+        <div class="glow-orb glow-mid"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 border-b border-white/[0.06] bg-slate-950/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between relative">
+
+            <!-- CENTER: animated IF-THEN rule ticker (xl only) -->
+            <div id="rule-ticker-wrap" class="absolute left-1/2 -translate-x-1/2 items-center gap-2 pointer-events-none select-none">
+                <span class="rule-engine-label">⚡ RULES</span>
+                <div class="w-px h-3.5 bg-white/10 shrink-0"></div>
+                <div id="header-rule-ticker" class="relative h-5 overflow-hidden" style="width:clamp(200px,28vw,380px)"></div>
+            </div>
+
+            <div id="logo-link" class="flex items-center gap-2.5 cursor-pointer" onclick="restartApp()">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center font-black text-sm select-none">L</div>
+                <div>
+                    <span class="text-lg font-bold tracking-tight">Laptop Buying Guide</span>
+                    <span class="hidden sm:inline text-xs text-slate-500 ml-2">Expert System</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="hidden sm:flex items-center gap-2 text-xs text-slate-500">
+                    <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+                    <span>Expert Knowledge Base · 18 Inference Rules · Rule-Based AI</span>
+                </div>
+                <button id="restart-header-btn" class="hidden text-sm text-slate-400 hover:text-white transition-colors px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/20" onclick="restartApp()">
+                    ← Start Over
+                </button>
+                <!-- Light mode toggle -->
+                <button id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode"
+                    class="w-8 h-8 rounded-lg border border-white/10 hover:border-white/25 flex items-center justify-center text-base transition-all hover:scale-110 bg-white/5 hover:bg-white/10">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+
+        <!-- ══════════════════════════════════════════════════ -->
+        <!-- LIVE MARKET TICKER                                 -->
+        <!-- ══════════════════════════════════════════════════ -->
+        <div id="ticker-bar" class="sticky top-16 z-40 border-b border-white/[0.06] bg-slate-950/92 backdrop-blur-md overflow-hidden select-none" aria-label="2026 laptop market trends">
+            <div class="flex items-stretch h-8">
+
+                <!-- Label chip -->
+                <div class="shrink-0 bg-violet-700 px-3 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-white z-10">
+                    <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                    <span class="hidden sm:inline">2026 MARKET</span>
+                    <span class="sm:hidden">LIVE</span>
+                </div>
+
+                <!-- Ticker scroll area -->
+                <div class="overflow-hidden flex-1 relative">
+                    <!-- Fade masks -->
+                    <div class="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+
+                    <!-- Track — JS clones items for seamless loop -->
+                    <div class="ticker-track" id="ticker-track">
+
+                        <div class="ticker-item"><span class="t-brand">APPLE</span><span class="t-name">MacBook Air M4 13"</span><span class="t-price">€1,199</span><span class="t-change t-up">▲ +3.2%</span><span class="t-tag t-tag-hot">HOT</span></div>
+                        <div class="ticker-item"><span class="t-brand">ASUS</span><span class="t-name">ROG Zephyrus G14</span><span class="t-price">€1,299</span><span class="t-change t-up">▲ +7.8%</span></div>
+                        <div class="ticker-item"><span class="t-brand">LENOVO</span><span class="t-name">ThinkPad X1 Carbon</span><span class="t-price">€1,899</span><span class="t-change t-up">▲ +1.1%</span></div>
+                        <div class="ticker-item"><span class="t-brand">DELL</span><span class="t-name">XPS 13 (2026)</span><span class="t-price">€1,049</span><span class="t-change t-down">▼ −0.8%</span></div>
+                        <div class="ticker-item"><span class="t-brand">FRAMEWORK</span><span class="t-name">Laptop 13 AMD</span><span class="t-price">€849</span><span class="t-change t-up">▲ +12.4%</span><span class="t-tag t-tag-new">NEW</span></div>
+                        <div class="ticker-item"><span class="t-brand">MSI</span><span class="t-name">Katana 15 B8V</span><span class="t-price">€799</span><span class="t-change t-up">▲ +4.3%</span></div>
+                        <div class="ticker-item"><span class="t-brand">HP</span><span class="t-name">Spectre x360 14</span><span class="t-price">€1,349</span><span class="t-change t-up">▲ +2.7%</span></div>
+                        <div class="ticker-item"><span class="t-brand">SAMSUNG</span><span class="t-name">Galaxy Book5 Pro</span><span class="t-price">€1,399</span><span class="t-change t-down">▼ −1.5%</span></div>
+                        <div class="ticker-item"><span class="t-brand">ASUS</span><span class="t-name">ProArt P16</span><span class="t-price">€1,899</span><span class="t-change t-up">▲ +8.9%</span></div>
+                        <div class="ticker-item"><span class="t-brand">LENOVO</span><span class="t-name">Legion Pro 5 Gen 8</span><span class="t-price">€1,299</span><span class="t-change t-up">▲ +5.6%</span></div>
+                        <div class="ticker-item"><span class="t-brand">APPLE</span><span class="t-name">MacBook Pro 14" M4</span><span class="t-price">€1,999</span><span class="t-change t-up">▲ +0.9%</span></div>
+                        <div class="ticker-item"><span class="t-brand">DELL</span><span class="t-name">G15 Gaming</span><span class="t-price">€899</span><span class="t-change t-up">▲ +3.4%</span></div>
+                        <div class="ticker-item"><span class="t-brand">LG</span><span class="t-name">Gram 16 (2026)</span><span class="t-price">€1,299</span><span class="t-change t-up">▲ +6.2%</span></div>
+                        <div class="ticker-item"><span class="t-brand">MICROSOFT</span><span class="t-name">Surface Laptop 7</span><span class="t-price">€1,199</span><span class="t-change t-up">▲ +2.1%</span></div>
+                        <div class="ticker-item"><span class="t-brand">ACER</span><span class="t-name">Predator Helios Neo 16</span><span class="t-price">€999</span><span class="t-change t-up">▲ +4.7%</span></div>
+                        <div class="ticker-item"><span class="t-brand">ASUS</span><span class="t-name">Zenbook 14 OLED</span><span class="t-price">€899</span><span class="t-change t-up">▲ +6.8%</span></div>
+                        <div class="ticker-item"><span class="t-brand">APPLE</span><span class="t-name">MacBook Air M4 15"</span><span class="t-price">€1,449</span><span class="t-change t-up">▲ +4.1%</span></div>
+                        <div class="ticker-item"><span class="t-brand">LENOVO</span><span class="t-name">Yoga Pro 9i</span><span class="t-price">€1,699</span><span class="t-change t-down">▼ −0.4%</span></div>
+                        <div class="ticker-item"><span class="t-brand">ASUS</span><span class="t-name">ROG Strix G16</span><span class="t-price">€1,599</span><span class="t-change t-up">▲ +3.3%</span></div>
+                        <div class="ticker-item"><span class="t-brand">HP</span><span class="t-name">Omen 16 (2026)</span><span class="t-price">€1,099</span><span class="t-change t-up">▲ +2.9%</span></div>
+                        <div class="ticker-item"><span class="t-brand">LENOVO</span><span class="t-name">Legion 5i Gen 9</span><span class="t-price">€1,199</span><span class="t-change t-down">▼ −1.2%</span></div>
+                        <div class="ticker-item"><span class="t-brand">APPLE</span><span class="t-name">MacBook Pro 16" M4 Pro</span><span class="t-price">€2,999</span><span class="t-change t-up">▲ +1.8%</span></div>
+                        <div class="ticker-item"><span class="t-brand">DELL</span><span class="t-name">XPS 16 (2026)</span><span class="t-price">€2,099</span><span class="t-change t-down">▼ −2.1%</span></div>
+                        <div class="ticker-item"><span class="t-brand">APPLE</span><span class="t-name">MacBook Neo A18</span><span class="t-price">€699</span><span class="t-change t-up">▲ +18.5%</span><span class="t-tag t-tag-new">NEW</span></div>
+
+                    </div><!-- /ticker-track -->
+                </div>
+
+                <!-- Pause hint -->
+                <div class="shrink-0 px-2 hidden sm:flex items-center text-[9px] text-slate-700 gap-1">⏸ hover</div>
+            </div>
+        </div><!-- /ticker-bar -->
+
+        <!-- WIZARD SECTION -->
+        <section id="wizard-section" class="flex flex-col items-center py-10 px-4">
+
+            <!-- ── HERO ─────────────────────────────────────────── -->
+            <div class="w-full max-w-5xl mx-auto mb-8">
+                <!-- Two-col on desktop: text left, laptop visuals right -->
+                <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+
+                    <!-- Left: text -->
+                    <div class="text-center lg:text-left flex-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-violet-500/40 bg-violet-500/15 text-violet-300 text-xs font-semibold mb-5">
+                            🧠 Rule-Based AI Expert System · University AI Course Project
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 leading-tight tracking-tight">
+                            Find Your<br><span class="gradient-text">Perfect Laptop</span><br>with AI
+                        </h1>
+                        <p class="text-slate-300 text-base sm:text-lg max-w-md mx-auto lg:mx-0 leading-relaxed mb-5">
+                            Answer 10 questions — the inference engine fires 18 rules, matches your profile and <strong class="text-white">explains every pick.</strong>
+                        </p>
+                        <!-- Stats row -->
+                        <div class="flex items-center justify-center lg:justify-start gap-5 flex-wrap mb-5">
+                            <div class="hero-stat" style="animation-delay:.2s">
+                                <span class="text-2xl font-black text-cyan-400">18</span>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest">IF-THEN Rules</span>
+                            </div>
+                            <div class="w-px h-8 bg-white/10"></div>
+                            <div class="hero-stat" style="animation-delay:.3s">
+                                <span class="text-2xl font-black text-emerald-400">10</span>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest">Questions</span>
+                            </div>
+                            <div class="w-px h-8 bg-white/10"></div>
+                            <div class="hero-stat" style="animation-delay:.4s">
+                                <span class="text-2xl font-black text-violet-400">36</span>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest">Laptop Models</span>
+                            </div>
+                            <div class="w-px h-8 bg-white/10"></div>
+                            <div class="hero-stat" style="animation-delay:.5s">
+                                <span class="text-2xl font-black text-amber-400">8+</span>
+                                <span class="text-[10px] text-slate-500 uppercase tracking-widest">ES Concepts</span>
+                            </div>
+                        </div>
+                        <!-- Pills — single row, colorful, scrollable -->
+                        <div class="pills-single-row">
+                            <button class="cpill cpill-gaming" onclick="openChatModal()">🎮 Gaming <span>▲ 7.8%</span></button>
+                            <button class="cpill cpill-dev"    onclick="openChatModal()">💻 Dev <span>▲ 5.2%</span></button>
+                            <button class="cpill cpill-mac"    onclick="openChatModal()">🍎 macOS <span>▲ 3.8%</span></button>
+                            <button class="cpill cpill-travel" onclick="openChatModal()">✈️ Travel <span>▲ 6.1%</span></button>
+                            <button class="cpill cpill-sec"    onclick="openChatModal()">🔐 Security <span>NEW</span></button>
+                            <button class="cpill cpill-create" onclick="openChatModal()">🎨 Creative <span>▲ 8.9%</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Most Popular laptops (filled by JS from KB) -->
+                    <div class="hidden lg:flex flex-col gap-3 flex-shrink-0 w-72 relative">
+                        <div class="text-[9px] font-black uppercase tracking-widest text-slate-500 text-center mb-1">
+                            🔥 Most Popular Laptops
+                        </div>
+                        <div id="popular-hero-cards" class="flex flex-col gap-3">
+                            <!-- JS renders top-2 laptops from KNOWLEDGE_BASE here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── BIG CHAT CTA ────────────────────────────────── -->
+            <div class="w-full max-w-4xl mb-6">
+                <div class="chat-cta-card rounded-3xl p-1">
+                    <div class="rounded-[20px] bg-slate-900/80 backdrop-blur-xl p-6 sm:p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center text-2xl shadow-lg shadow-violet-500/30 flex-shrink-0">💬</div>
+                            <div>
+                                <p class="text-lg sm:text-xl font-extrabold text-white">Chat with the Expert System</p>
+                                <p class="text-sm text-slate-400">It asks targeted questions, fires 18 rules and explains every recommendation</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 mb-5 px-1">
+                            <div class="flex gap-2 items-end">
+                                <div class="w-7 h-7 rounded-full bg-violet-600/60 flex items-center justify-center text-xs flex-shrink-0">🤖</div>
+                                <div class="bg-slate-800/80 border border-white/[0.06] rounded-2xl rounded-bl-sm px-4 py-2.5 text-sm text-slate-200 max-w-xs">
+                                    Hi! What's your budget? 💰
+                                </div>
+                            </div>
+                            <div class="flex gap-2 items-end flex-row-reverse">
+                                <div class="w-7 h-7 rounded-full bg-slate-700 flex items-center justify-center text-xs flex-shrink-0">👤</div>
+                                <div class="bg-violet-600/20 border border-violet-500/30 rounded-2xl rounded-br-sm px-4 py-2.5 text-sm text-violet-200 max-w-xs">
+                                    ~€1000, gaming &amp; dev work
+                                </div>
+                            </div>
+                            <div class="flex gap-2 items-end">
+                                <div class="w-7 h-7 rounded-full bg-violet-600/60 flex items-center justify-center text-xs flex-shrink-0">🤖</div>
+                                <div class="bg-slate-800/80 border border-white/[0.06] rounded-2xl rounded-bl-sm px-4 py-2.5 text-sm text-slate-200 max-w-[280px]">
+                                    Do you need a dedicated GPU? 🎮 18 rules running…
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openChatModal()"
+                            class="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-base font-extrabold transition-all duration-200 shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+                            <span>💬 Start Chat</span>
+                            <span class="opacity-70 font-normal text-sm">— free, no sign-up</span>
+                        </button>
+                        <p class="text-center text-xs text-slate-600 mt-2">or use the step-by-step wizard below ↓</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── FEATURED LAPTOPS STRIP ─────────────────────────── -->
+            <div class="w-full max-w-4xl mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-500">🔥 Popular Picks — 2026</p>
+                    <button onclick="openChatModal()" class="text-xs text-violet-400 hover:text-violet-300 transition-colors font-semibold">Find yours →</button>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <!-- MacBook Air M4 -->
+                    <div class="featured-card" onclick="openChatModal()" title="Chat with Expert System to find your best match">
+                        <img class="featured-card-img" src="/laptops/apple-macbook-air-m4-13.jpg" alt="MacBook Air M4" onerror="this.src='/laptops/default-laptop.jpg'">
+                        <div class="featured-card-body">
+                            <p class="featured-card-brand">APPLE</p>
+                            <p class="featured-card-name">MacBook Air M4</p>
+                            <p class="featured-card-price">€1,199</p>
+                            <div class="featured-card-specs">
+                                <span class="spec-badge spec-badge-cpu">M4</span>
+                                <span class="spec-badge spec-badge-ram">16GB</span>
+                                <span class="spec-badge spec-badge-bat">18h</span>
+                                <span class="spec-badge spec-badge-cat">Everyday</span>
+                            </div>
+                            <div class="featured-match-bar"><div class="featured-match-fill" style="width:96%"></div></div>
+                        </div>
+                    </div>
+                    <!-- ROG Zephyrus G14 -->
+                    <div class="featured-card" onclick="openChatModal()" title="Chat with Expert System to find your best match">
+                        <img class="featured-card-img" src="/laptops/asus-rog-zephyrus-g14.jpg" alt="ROG Zephyrus G14" onerror="this.src='/laptops/default-laptop.jpg'">
+                        <div class="featured-card-body">
+                            <p class="featured-card-brand">ASUS</p>
+                            <p class="featured-card-name">ROG Zephyrus G14</p>
+                            <p class="featured-card-price">€1,299</p>
+                            <div class="featured-card-specs">
+                                <span class="spec-badge spec-badge-cpu">RTX 4060</span>
+                                <span class="spec-badge spec-badge-ram">16GB</span>
+                                <span class="spec-badge spec-badge-cat">Gaming</span>
+                            </div>
+                            <div class="featured-match-bar"><div class="featured-match-fill" style="width:88%;background:linear-gradient(90deg,#ef4444,#f97316)"></div></div>
+                        </div>
+                    </div>
+                    <!-- ThinkPad X1 Carbon -->
+                    <div class="featured-card" onclick="openChatModal()" title="Chat with Expert System to find your best match">
+                        <img class="featured-card-img" src="/laptops/lenovo-thinkpad-x1-carbon-gen12.jpg" alt="ThinkPad X1 Carbon" onerror="this.src='/laptops/default-laptop.jpg'">
+                        <div class="featured-card-body">
+                            <p class="featured-card-brand">LENOVO</p>
+                            <p class="featured-card-name">ThinkPad X1 Carbon</p>
+                            <p class="featured-card-price">€1,899</p>
+                            <div class="featured-card-specs">
+                                <span class="spec-badge spec-badge-cpu">Core Ultra 7</span>
+                                <span class="spec-badge spec-badge-ram">32GB</span>
+                                <span class="spec-badge spec-badge-cat">Business</span>
+                            </div>
+                            <div class="featured-match-bar"><div class="featured-match-fill" style="width:79%;background:linear-gradient(90deg,#06b6d4,#3b82f6)"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── MARKET INTELLIGENCE ────────────────────────────── -->
+            <div class="w-full max-w-4xl mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-500">📡 Price Signals — 2026 Market</p>
+                    <span class="text-[10px] text-slate-600 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full font-semibold text-amber-400">Market Simulation</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+
+                    <!-- News 1 — RAM crisis -->
+                    <div class="news-card news-card-up">
+                        <div class="news-card-header">
+                            <span class="news-impact news-impact-up">↑ RAM +18%</span>
+                            <span class="news-time">2h ago</span>
+                        </div>
+                        <p class="news-headline">SK Hynix Fab Fire Cuts DDR5 Supply 28%</p>
+                        <p class="news-body">Production halt at Icheon plant after electrical fire. Industry-wide RAM shortage expected to last 6–10 weeks. Laptop OEMs pre-ordering emergency stock.</p>
+                        <div class="news-footer">
+                            <span class="news-source">📰 SemiAnalysis</span>
+                            <span class="news-tag news-tag-up">🔴 Supply Crisis</span>
+                        </div>
+                    </div>
+
+                    <!-- News 2 — Iran-US war -->
+                    <div class="news-card news-card-up">
+                        <div class="news-card-header">
+                            <span class="news-impact news-impact-up">↑ Logistics +12%</span>
+                            <span class="news-time">5h ago</span>
+                        </div>
+                        <p class="news-headline">Iran-US Tensions Close Hormuz — Sea Freight Spikes</p>
+                        <p class="news-body">Strait of Hormuz disruption forces Asia-Europe cargo to Cape of Good Hope reroute. Transit time +14 days. Electronics shipping costs hit 3-year high.</p>
+                        <div class="news-footer">
+                            <span class="news-source">📰 Reuters</span>
+                            <span class="news-tag news-tag-up">🔴 Geopolitical</span>
+                        </div>
+                    </div>
+
+                    <!-- News 3 — US-China chip ban -->
+                    <div class="news-card news-card-up">
+                        <div class="news-card-header">
+                            <span class="news-impact news-impact-up">↑ GPU +8%</span>
+                            <span class="news-time">Yesterday</span>
+                        </div>
+                        <p class="news-headline">US Expands GPU Export Controls to 14 More Nations</p>
+                        <p class="news-body">BIS adds new chip restrictions targeting advanced AI GPUs. NVIDIA & AMD mid-range laptop GPUs subject to new licensing. EU importers stockpiling ahead of enforcement date.</p>
+                        <div class="news-footer">
+                            <span class="news-source">📰 The Verge</span>
+                            <span class="news-tag news-tag-up">🟠 Trade Policy</span>
+                        </div>
+                    </div>
+
+                    <!-- News 4 — Samsung fab good news -->
+                    <div class="news-card news-card-down">
+                        <div class="news-card-header">
+                            <span class="news-impact news-impact-down">↓ SoC −6%</span>
+                            <span class="news-time">2 days ago</span>
+                        </div>
+                        <p class="news-headline">Samsung 3nm GAA Fab Reaches Full Yield Capacity</p>
+                        <p class="news-body">Samsung's Pyeongtaek S5 line hits 95% yield on 3nm GAA process. Qualcomm Snapdragon X and Exynos output up 40%. ARM laptop chipset prices expected to ease in Q3.</p>
+                        <div class="news-footer">
+                            <span class="news-source">📰 AnandTech</span>
+                            <span class="news-tag news-tag-down">🟢 Supply Boost</span>
+                        </div>
+                    </div>
+
+                    <!-- News 5 — Apple M4 surplus -->
+                    <div class="news-card news-card-down">
+                        <div class="news-card-header">
+                            <span class="news-impact news-impact-down">↓ MacBook −15%</span>
+                            <span class="news-time">3 days ago</span>
+                        </div>
+                        <p class="news-headline">Apple M4 Inventory Surplus — Retailers Slash Prices</p>
+                        <p class="news-body">Ahead of rumored M5 launch in Q4 2026, retailers clearing M4 MacBook Air stock. Best Buy Germany and Amazon.de showing 10–18% discounts. Best time to buy Apple laptops in 2 years.</p>
+                        <div class="news-footer">
+                            <span class="news-source">📰 MacRumors</span>
+                            <span class="news-tag news-tag-down">🟢 Price Drop</span>
+                        </div>
+                    </div>
+
+                    <!-- News 6 — TSMC delay -->
+                    <div class="news-card news-card-neutral">
+                        <div class="news-card-header">
+                            <span class="news-impact news-impact-neutral">⚠ Watch</span>
+                            <span class="news-time">4 days ago</span>
+                        </div>
+                        <p class="news-headline">TSMC Arizona Phase 2 Delayed — N3 Risk in H2 2026</p>
+                        <p class="news-body">Advanced packaging bottleneck pushes Arizona Phase 2 back 8 months. Intel Core Ultra 300 and AMD Strix Halo volumes may be constrained. Mid-range gaming laptops could see limited availability.</p>
+                        <div class="news-footer">
+                            <span class="news-source">📰 DigiTimes</span>
+                            <span class="news-tag news-tag-neutral">🟡 Supply Risk</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ── HOW IT WORKS — always visible ─────────────────── -->
+            <div class="w-full max-w-4xl mb-6">
+                <p class="text-center text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">⚙ How the Expert System Works</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="how-step-card rounded-2xl p-4 text-center border border-violet-500/20 bg-violet-500/8">
+                        <div class="text-2xl mb-2">📚</div>
+                        <p class="text-xs font-bold text-violet-300 mb-1">Knowledge Base</p>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">36 laptops, 8+ attributes each in structured profiles</p>
+                    </div>
+                    <div class="how-step-card rounded-2xl p-4 text-center border border-cyan-500/20 bg-cyan-500/8">
+                        <div class="text-2xl mb-2">⚙️</div>
+                        <p class="text-xs font-bold text-cyan-300 mb-1">Inference Engine</p>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">18 IF-THEN rules fire based on your answers</p>
+                    </div>
+                    <div class="how-step-card rounded-2xl p-4 text-center border border-emerald-500/20 bg-emerald-500/8">
+                        <div class="text-2xl mb-2">📊</div>
+                        <p class="text-xs font-bold text-emerald-300 mb-1">Confidence Score</p>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">% match computed and ranked for every laptop</p>
+                    </div>
+                    <div class="how-step-card rounded-2xl p-4 text-center border border-amber-500/20 bg-amber-500/8">
+                        <div class="text-2xl mb-2">💡</div>
+                        <p class="text-xs font-bold text-amber-300 mb-1">Explainability</p>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">Rule trace shows exactly why each laptop was picked</p>
+                    </div>
+                </div>
+                <div class="mt-3 flex flex-wrap items-center justify-center gap-1 text-[10px] text-center">
+                    <div class="px-2.5 py-1.5 bg-violet-500/15 border border-violet-500/25 rounded-lg text-violet-300 font-semibold">Knowledge Base<br><span class="text-violet-400/50 font-normal">Laptop Profiles</span></div>
+                    <span class="text-slate-700">→</span>
+                    <div class="px-2.5 py-1.5 bg-cyan-500/15 border border-cyan-500/25 rounded-lg text-cyan-300 font-semibold">Inference Engine<br><span class="text-cyan-400/50 font-normal">18 IF-THEN</span></div>
+                    <span class="text-slate-700">→</span>
+                    <div class="px-2.5 py-1.5 bg-emerald-500/15 border border-emerald-500/25 rounded-lg text-emerald-300 font-semibold">Working Memory<br><span class="text-emerald-400/50 font-normal">User Answers</span></div>
+                    <span class="text-slate-700">→</span>
+                    <div class="px-2.5 py-1.5 bg-amber-500/15 border border-amber-500/25 rounded-lg text-amber-300 font-semibold">Conflict Resolution<br><span class="text-amber-400/50 font-normal">Score Ranking</span></div>
+                    <span class="text-slate-700">→</span>
+                    <div class="px-2.5 py-1.5 bg-pink-500/15 border border-pink-500/25 rounded-lg text-pink-300 font-semibold">Explanation<br><span class="text-pink-400/50 font-normal">Rule Trace + NLG</span></div>
+                </div>
+            </div>
+
+            <div class="w-full max-w-xl">
+                <div class="flex gap-1.5 mb-5" id="progress-dots"></div>
+                <div id="step-card" class="glass-card rounded-2xl p-7 sm:p-9 shadow-2xl">
+                    <div id="step-content"></div>
+                </div>
+                <div class="flex items-center justify-between mt-4" id="wizard-controls">
+                    <button id="prev-btn" class="text-slate-400 hover:text-white text-sm transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-1" disabled onclick="prevStep()">
+                        ← Back
+                    </button>
+                    <span id="step-counter" class="text-xs text-slate-600">Step 1 of 10</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULTS SECTION -->
+        <section id="results-section" class="hidden py-10 px-4 pb-28">
+            <div class="max-w-7xl mx-auto">
+
+                <!-- Restore from URL banner -->
+                <div id="restore-banner" class="hidden mb-4 p-3 rounded-xl border border-violet-500/30 bg-violet-500/10 flex items-center justify-between gap-3 flex-wrap">
+                    <p class="text-sm text-violet-300 flex items-center gap-2">🔗 <span>Shared results detected — restore these recommendations?</span></p>
+                    <div class="flex gap-2 shrink-0">
+                        <button id="restore-btn" class="px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-xs font-bold text-white transition-colors">Restore</button>
+                        <button id="restore-dismiss" class="px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/20 text-xs text-slate-400 transition-colors">Dismiss</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold">Top Recommendations</h2>
+                        <p id="results-subtitle" class="text-slate-400 mt-1 text-sm"></p>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap justify-end">
+                        <!-- Share button -->
+                        <button onclick="shareResults()" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all" title="Copy share link">
+                            🔗 Share
+                        </button>
+                        <!-- PDF Export -->
+                        <button onclick="exportPDF()" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all" title="Print / Save as PDF">
+                            🖨️ PDF
+                        </button>
+                        <!-- Favorites -->
+                        <button onclick="document.getElementById('favorites-panel').classList.toggle('hidden')" class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-white/10 text-xs font-semibold text-slate-300 hover:text-white transition-all" title="Saved favorites">
+                            ❤️ Saved <span id="favorites-count" class="bg-violet-600 text-white rounded-full px-1.5 py-0.5 text-[10px] ml-0.5">0</span>
+                        </button>
+                        <label class="text-xs text-slate-500 ml-1">Sort:</label>
+                        <select id="sort-select" class="bg-slate-800 border border-white/10 text-slate-300 text-sm rounded-lg px-3 py-2 outline-none focus:border-violet-500 cursor-pointer">
+                            <option value="score">Best Match</option>
+                            <option value="confidence">Confidence %</option>
+                            <option value="price-asc">Price: Low → High</option>
+                            <option value="price-desc">Price: High → Low</option>
+                            <option value="value">Value Score</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Favorites panel -->
+                <div id="favorites-panel" class="hidden mb-5 glass-card rounded-2xl p-4 border border-violet-500/20">
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="font-semibold text-sm flex items-center gap-2">❤️ Saved Laptops</p>
+                        <button onclick="document.getElementById('favorites-panel').classList.add('hidden')" class="text-slate-500 hover:text-white text-sm transition-colors">✕</button>
+                    </div>
+                    <div id="favorites-list" class="text-xs text-slate-400">No saved laptops yet — click the 🤍 on any card.</div>
+                </div>
+
+                <!-- What-If Analysis panel -->
+                <div class="mb-5 glass-card rounded-2xl p-4 border border-cyan-500/20">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-cyan-400">💡</span>
+                        <p class="font-semibold text-sm text-cyan-300">What-If Analysis</p>
+                        <span class="text-xs text-slate-500">— change your budget and instantly re-run inference</span>
+                    </div>
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <span class="text-xs text-slate-400 shrink-0">Budget:</span>
+                        <span id="whatif-display" class="text-sm font-bold text-cyan-400 w-24 shrink-0">€—</span>
+                        <input id="whatif-slider" type="range" min="300" max="5000" step="50"
+                            class="flex-1 min-w-32 accent-violet-500 cursor-pointer"
+                            oninput="document.getElementById('whatif-display').textContent='€'+parseInt(this.value).toLocaleString()">
+                        <button onclick="runWhatIf()" class="shrink-0 px-4 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white transition-colors">
+                            Re-run →
+                        </button>
+                    </div>
+                    <p class="text-[10px] text-slate-600 mt-2">Results update instantly — original answers stay saved. Click "Start Over" to reset.</p>
+                </div>
+
+                <!-- Top 3 Picks (injected by JS) -->
+                <div id="top-picks-container"></div>
+
+                <!-- Used markets banner -->
+                <div id="used-markets-banner" class="hidden mb-6 p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/10">
+                    <h3 class="font-semibold text-cyan-400 text-sm mb-2">🇪🇺 Best 2nd Hand & Refurb Platforms in Europe</h3>
+                    <div class="flex flex-wrap gap-x-4 gap-y-1">
+                        <a href="https://www.backmarket.de" target="_blank" rel="noopener" class="text-sm text-cyan-300 hover:text-white underline underline-offset-2 transition-colors">BackMarket.de</a>
+                        <a href="https://www.backmarket.es" target="_blank" rel="noopener" class="text-sm text-cyan-300 hover:text-white underline underline-offset-2 transition-colors">BackMarket.es</a>
+                        <a href="https://www.refurbed.de" target="_blank" rel="noopener" class="text-sm text-cyan-300 hover:text-white underline underline-offset-2 transition-colors">Refurbed.de</a>
+                        <a href="https://www.kleinanzeigen.de" target="_blank" rel="noopener" class="text-sm text-cyan-300 hover:text-white underline underline-offset-2 transition-colors">Kleinanzeigen.de</a>
+                    </div>
+                </div>
+
+                <!-- Linux note -->
+                <div id="linux-note" class="hidden mb-5 p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-sm text-emerald-300">
+                    🐧 <strong>Linux users:</strong> ThinkPads have best-in-class Linux driver support (Rule R18 applied). macOS devices excluded.
+                </div>
+
+                <!-- Knowledge Base Panel -->
+                <details class="mb-6 glass-card rounded-2xl overflow-hidden">
+                    <summary class="px-5 py-4 cursor-pointer flex items-center justify-between select-none list-none">
+                        <div class="flex items-center gap-2">
+                            <span class="text-cyan-400">📚</span>
+                            <span class="font-semibold text-sm">Knowledge Base Overview</span>
+                            <span class="text-xs text-slate-500 hidden sm:inline">(18 inference rules · structured domain knowledge)</span>
+                        </div>
+                        <span class="why-arrow text-slate-500">▶</span>
+                    </summary>
+                    <div class="px-5 pb-5 border-t border-white/[0.05]">
+                        <p class="text-xs text-slate-400 mt-4 mb-3 leading-relaxed">
+                            The knowledge base contains laptop specifications, usage categories, strengths, weaknesses, expert notes, user feedback summaries, and scoring values. Each entry represents structured domain knowledge the inference engine reasons over using forward-chaining rules.
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs mb-4">
+                            <div class="bg-slate-800/60 rounded-lg p-2.5 text-center">
+                                <p class="text-2xl font-bold text-violet-400" id="kb-stats-laptops">—</p>
+                                <p class="text-slate-500">Models</p>
+                            </div>
+                            <div class="bg-slate-800/60 rounded-lg p-2.5 text-center">
+                                <p class="text-2xl font-bold text-cyan-400" id="kb-stats-rules">18</p>
+                                <p class="text-slate-500">IF-THEN Rules</p>
+                            </div>
+                            <div class="bg-slate-800/60 rounded-lg p-2.5 text-center">
+                                <p class="text-2xl font-bold text-emerald-400" id="kb-stats-questions">10</p>
+                                <p class="text-slate-500">Questions</p>
+                            </div>
+                            <div class="bg-slate-800/60 rounded-lg p-2.5 text-center">
+                                <p class="text-2xl font-bold text-amber-400">8+</p>
+                                <p class="text-slate-500">Attributes/Laptop</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-400">
+                            <div><span class="text-slate-300 font-semibold">Inference method:</span> Forward chaining, rule firing, score accumulation</div>
+                            <div><span class="text-slate-300 font-semibold">Explanation type:</span> Rule trace + natural language generation</div>
+                            <div><span class="text-slate-300 font-semibold">Confidence model:</span> Requirement satisfaction rate × rule match rate</div>
+                            <div><span class="text-slate-300 font-semibold">Fallback logic:</span> Constraint relaxation when no strict matches found</div>
+                        </div>
+                        <details class="mt-3">
+                          <summary class="cursor-pointer text-xs font-semibold text-violet-400 hover:text-violet-300 transition-colors select-none list-none flex items-center gap-1.5">
+                            <span>▶</span> View Full IF-THEN Rule Base (18 rules)
+                          </summary>
+                          <div id="rule-list-container" class="mt-2 space-y-1 max-h-64 overflow-y-auto pr-1"></div>
+                        </details>
+                    </div>
+                </details>
+
+                <!-- Results grid -->
+                <div id="results-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+
+                <!-- No results -->
+                <div id="no-results" class="hidden text-center py-20">
+                    <div class="text-5xl mb-4">🔍</div>
+                    <h3 class="text-xl font-bold mb-2">No exact matches found</h3>
+                    <p class="text-slate-400 mb-6 text-sm">The inference engine could not satisfy all constraints. Try increasing your budget, relaxing RAM requirements, or changing OS preference.</p>
+                    <button class="px-6 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 font-semibold transition-colors text-sm" onclick="restartApp()">Start Over</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- COMPARISON BAR -->
+    <div id="compare-bar" class="fixed bottom-0 left-0 right-0 z-50 hidden slide-up">
+        <div class="border-t border-white/10 bg-slate-900/95 backdrop-blur-xl px-4 py-3">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 flex-wrap">
+                <div class="flex items-center gap-3 min-w-0">
+                    <span class="text-sm text-slate-400 shrink-0">Compare:</span>
+                    <div id="compare-slots" class="flex items-center gap-2 flex-wrap"></div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button class="text-xs text-slate-500 hover:text-slate-300 transition-colors" onclick="clearCompare()">Clear all</button>
+                    <button id="open-compare-btn" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled onclick="openCompareModal()">
+                        Compare Side-by-Side →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAT EXPERT SYSTEM MODAL -->
+    <div id="chat-modal" class="fixed inset-0 z-[110] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeChatModal()"></div>
+        <div class="relative h-full flex items-end sm:items-center justify-center p-0 sm:p-6">
+            <div class="relative w-full sm:w-[92vw] sm:max-w-6xl bg-slate-950 rounded-t-2xl sm:rounded-2xl flex flex-col h-[92dvh] sm:h-[88vh] shadow-2xl border border-white/10 overflow-hidden">
+
+                <!-- Chat header -->
+                <div class="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-slate-900/80 shrink-0">
+                    <div class="flex items-center gap-3">
+                        <!-- ByteDragon Mascot SVG -->
+                        <svg id="bytedragon" viewBox="0 0 60 72" width="44" height="53" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+                          <defs>
+                            <filter id="bd-glow" x="-50%" y="-50%" width="200%" height="200%">
+                              <feGaussianBlur stdDeviation="1.8" result="b"/>
+                              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
+                          </defs>
+                          <!-- Wings -->
+                          <path id="bd-wing-l" d="M16 40 Q3 23 10 8 Q14 30 20 36" fill="#1e1b4b" stroke="#4338ca" stroke-width="1.2"/>
+                          <line x1="9" y1="21" x2="14" y2="32" stroke="#4f46e5" stroke-width="0.6" opacity="0.8"/>
+                          <line x1="7" y1="28" x2="13" y2="36" stroke="#4f46e5" stroke-width="0.6" opacity="0.7"/>
+                          <path id="bd-wing-r" d="M44 40 Q57 23 50 8 Q46 30 40 36" fill="#1e1b4b" stroke="#4338ca" stroke-width="1.2"/>
+                          <line x1="51" y1="21" x2="46" y2="32" stroke="#4f46e5" stroke-width="0.6" opacity="0.8"/>
+                          <line x1="53" y1="28" x2="47" y2="36" stroke="#4f46e5" stroke-width="0.6" opacity="0.7"/>
+                          <!-- Body -->
+                          <ellipse cx="30" cy="52" rx="14" ry="16" fill="#312e81" stroke="#4f46e5" stroke-width="1.5"/>
+                          <path d="M22 47 L26 52 L22 57" stroke="#22d3ee" stroke-width="0.7" fill="none" opacity="0.55"/>
+                          <path d="M38 47 L34 52 L38 57" stroke="#22d3ee" stroke-width="0.7" fill="none" opacity="0.55"/>
+                          <circle id="bd-chest" cx="30" cy="52" r="3.5" fill="#22d3ee" filter="url(#bd-glow)"/>
+                          <!-- Neck -->
+                          <path d="M21 39 Q30 34 39 39" fill="#3730a3" stroke="#4f46e5" stroke-width="1"/>
+                          <!-- Head -->
+                          <ellipse cx="30" cy="23" rx="13" ry="14" fill="#4f46e5" stroke="#6366f1" stroke-width="1.5"/>
+                          <!-- Horns -->
+                          <path d="M21 12 L17 1 L23 11" fill="#7c3aed" stroke="#8b5cf6" stroke-width="0.8"/>
+                          <path d="M39 12 L43 1 L37 11" fill="#7c3aed" stroke="#8b5cf6" stroke-width="0.8"/>
+                          <circle cx="17" cy="1" r="1.6" fill="#c4b5fd" opacity="0.9"/>
+                          <circle cx="43" cy="1" r="1.6" fill="#c4b5fd" opacity="0.9"/>
+                          <!-- Eye aura -->
+                          <ellipse id="bd-aura-l" cx="22" cy="21" rx="5.5" ry="5.5" fill="#22d3ee" opacity="0.22"/>
+                          <ellipse id="bd-aura-r" cx="38" cy="21" rx="5.5" ry="5.5" fill="#22d3ee" opacity="0.22"/>
+                          <!-- Eyes -->
+                          <ellipse id="bd-eye-l" cx="22" cy="21" rx="4" ry="4" fill="#22d3ee"/>
+                          <ellipse id="bd-eye-r" cx="38" cy="21" rx="4" ry="4" fill="#22d3ee"/>
+                          <!-- Dragon pupils (vertical slit) -->
+                          <ellipse cx="22" cy="21" rx="1.5" ry="3.2" fill="#083344"/>
+                          <ellipse cx="38" cy="21" rx="1.5" ry="3.2" fill="#083344"/>
+                          <circle cx="23.5" cy="19.5" r="0.9" fill="white" opacity="0.9"/>
+                          <circle cx="39.5" cy="19.5" r="0.9" fill="white" opacity="0.9"/>
+                          <!-- Snout -->
+                          <path d="M23 28 Q30 33 37 28 Q35 35 30 36 Q25 35 23 28Z" fill="#3730a3" stroke="#6366f1" stroke-width="1"/>
+                          <circle id="bd-nostril-l" cx="27" cy="31" r="1.3" fill="#22d3ee" opacity="0.5"/>
+                          <circle id="bd-nostril-r" cx="33" cy="31" r="1.3" fill="#22d3ee" opacity="0.5"/>
+                          <path d="M26 28 Q30 31 34 28" stroke="#818cf8" stroke-width="1" fill="none"/>
+                          <!-- Tail -->
+                          <path d="M30 66 Q37 71 41 69 Q39 66 35 64 Q31 63 30 66Z" fill="#4f46e5" stroke="#6366f1" stroke-width="0.8"/>
+                        </svg>
+                        <div>
+                            <p class="font-bold text-sm text-white">Expert System Chat</p>
+                            <p id="chat-status-text" class="text-[10px] text-slate-500">Rule-based AI · 18 inference rules · offline</p>
+                        </div>
+                    </div>
+                    <button onclick="closeChatModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors text-lg font-light">✕</button>
+                </div>
+
+                <!-- Progress bar -->
+                <div class="h-0.5 bg-slate-800/80 shrink-0">
+                    <div id="chat-progress-fill" class="h-full bg-gradient-to-r from-violet-500 to-cyan-400 transition-all duration-500 ease-out" style="width:0%"></div>
+                </div>
+
+                <!-- Two-column layout on desktop -->
+                <div class="flex flex-1 overflow-hidden">
+
+                    <!-- LEFT: Chat area -->
+                    <div class="flex flex-col flex-1 min-w-0">
+                        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+                        <div id="chat-quick-replies" class="px-4 pb-2 flex flex-wrap gap-1.5 shrink-0"></div>
+                        <div class="px-3 py-3 border-t border-white/10 bg-slate-900/80 shrink-0">
+                            <div class="flex gap-2">
+                                <input id="chat-input" type="text" autocomplete="off"
+                                    class="flex-1 bg-slate-800 rounded-xl px-4 py-2.5 text-sm outline-none border border-white/10 focus:border-violet-500 placeholder-slate-600 text-slate-100 transition-colors"
+                                    placeholder="Type your answer or pick a button…"
+                                    onkeydown="handleChatKeydown(event)">
+                                <button id="chat-send-btn" onclick="submitChatInput()"
+                                    class="px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-sm font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Info panel — desktop only -->
+                    <div class="hidden sm:flex flex-col w-80 border-l border-white/[0.06] bg-slate-900/60 shrink-0 overflow-y-auto">
+                        <!-- How it works -->
+                        <div class="p-5 border-b border-white/[0.05]">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">⚙ How It Works</p>
+                            <div class="space-y-2.5">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-violet-500/20 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">📚</div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-violet-300">Knowledge Base</p>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">36 laptops with 8+ expert-curated attributes</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-cyan-500/20 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">⚙️</div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-cyan-300">Inference Engine</p>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">18 IF-THEN rules fire against your answers</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">📊</div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-emerald-300">Confidence Score</p>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">Each laptop gets a % match, then ranked</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-500/20 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">💡</div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-amber-300">Explainability</p>
+                                        <p class="text-[11px] text-slate-500 mt-0.5">Every pick shows its full rule trace</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sample rules -->
+                        <div class="p-5 border-b border-white/[0.05]">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">🔥 Sample Rules</p>
+                            <div class="space-y-2">
+                                <div class="bg-slate-800/60 rounded-lg px-3 py-2 text-[11px] border border-white/[0.04]">
+                                    <span class="text-violet-400 font-mono font-bold">IF</span> <span class="text-slate-300">gaming = serious</span><br>
+                                    <span class="text-cyan-400 font-mono font-bold">THEN</span> <span class="text-emerald-300">GPU match +30</span>
+                                </div>
+                                <div class="bg-slate-800/60 rounded-lg px-3 py-2 text-[11px] border border-white/[0.04]">
+                                    <span class="text-violet-400 font-mono font-bold">IF</span> <span class="text-slate-300">portability = travel</span><br>
+                                    <span class="text-cyan-400 font-mono font-bold">THEN</span> <span class="text-emerald-300">weight ≤1.5kg +20</span>
+                                </div>
+                                <div class="bg-slate-800/60 rounded-lg px-3 py-2 text-[11px] border border-white/[0.04]">
+                                    <span class="text-violet-400 font-mono font-bold">IF</span> <span class="text-slate-300">os = macOS</span><br>
+                                    <span class="text-cyan-400 font-mono font-bold">THEN</span> <span class="text-emerald-300">Apple only +25</span>
+                                </div>
+                                <div class="bg-slate-800/60 rounded-lg px-3 py-2 text-[11px] border border-white/[0.04]">
+                                    <span class="text-violet-400 font-mono font-bold">IF</span> <span class="text-slate-300">VM use = yes</span><br>
+                                    <span class="text-cyan-400 font-mono font-bold">THEN</span> <span class="text-emerald-300">RAM ≥16GB required</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ES architecture -->
+                        <div class="p-5">
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">🏗 Architecture</p>
+                            <div class="flex flex-col gap-1.5 text-[10px]">
+                                <div class="px-3 py-2 bg-violet-500/15 border border-violet-500/20 rounded-lg text-violet-300 font-semibold">Knowledge Base <span class="text-violet-400/50 font-normal">· Laptop Profiles</span></div>
+                                <div class="flex items-center gap-1 text-slate-700 pl-3">↓</div>
+                                <div class="px-3 py-2 bg-cyan-500/15 border border-cyan-500/20 rounded-lg text-cyan-300 font-semibold">Inference Engine <span class="text-cyan-400/50 font-normal">· 18 Rules</span></div>
+                                <div class="flex items-center gap-1 text-slate-700 pl-3">↓</div>
+                                <div class="px-3 py-2 bg-emerald-500/15 border border-emerald-500/20 rounded-lg text-emerald-300 font-semibold">Working Memory <span class="text-emerald-400/50 font-normal">· User Facts</span></div>
+                                <div class="flex items-center gap-1 text-slate-700 pl-3">↓</div>
+                                <div class="px-3 py-2 bg-amber-500/15 border border-amber-500/20 rounded-lg text-amber-300 font-semibold">Conflict Resolution <span class="text-amber-400/50 font-normal">· Ranking</span></div>
+                                <div class="flex items-center gap-1 text-slate-700 pl-3">↓</div>
+                                <div class="px-3 py-2 bg-pink-500/15 border border-pink-500/20 rounded-lg text-pink-300 font-semibold">Explanation <span class="text-pink-400/50 font-normal">· Rule Trace</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARISON MODAL -->
+    <div id="compare-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeCompareModal()"></div>
+        <div class="relative h-full overflow-y-auto">
+            <div class="min-h-full flex items-start justify-center p-4 sm:p-8">
+                <div class="relative w-full max-w-6xl glass-card rounded-2xl p-5 sm:p-8 my-6 shadow-2xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold">Side-by-Side Comparison</h2>
+                            <p class="text-slate-400 text-sm mt-0.5">Expert System comparison — includes confidence scores and knowledge base attributes</p>
+                        </div>
+                        <button class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors text-lg font-light" onclick="closeCompareModal()">✕</button>
+                    </div>
+                    <div id="compare-table-container" class="overflow-x-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tailwind safelist (do not remove — CDN needs these pre-declared for dynamic classes) -->
+    <div class="hidden" aria-hidden="true">
+        bg-emerald-500/20 text-emerald-400 border-emerald-500/30
+        bg-blue-500/20 text-blue-400 border-blue-500/30
+        bg-purple-500/20 text-purple-400 border-purple-500/30
+        bg-cyan-500/20 text-cyan-400 border-cyan-500/30
+        bg-red-500/20 text-red-400 border-red-500/30
+        bg-amber-500/20 text-amber-400 border-amber-500/30
+        bg-indigo-500/20 text-indigo-400 border-indigo-500/30
+        bg-slate-500/20 text-slate-400 border-slate-500/30
+        border-emerald-400 text-emerald-400
+        border-blue-400 text-blue-400
+        border-yellow-400 text-yellow-400
+        border-orange-400 text-orange-400
+        bg-violet-500/10 border-violet-500/20 bg-violet-500/15
+        bg-cyan-500/10 border-cyan-500/20
+        bg-emerald-500/10 border-emerald-500/20 bg-emerald-500/15
+        bg-amber-500/10 border-amber-500/20 bg-amber-500/15
+        bg-emerald-400 bg-blue-400 bg-amber-400
+    </div>
+
+    <!-- Academic footer -->
+    <footer class="relative z-10 border-t border-white/[0.05] bg-slate-950/60 py-6 px-5 text-center mt-auto">
+      <div class="max-w-2xl mx-auto">
+        <p class="text-xs text-slate-600">
+          <span class="text-slate-500 font-semibold">Laptop Buying Expert System</span> ·
+          University AI Course Project ·
+          Rule-Based Expert System with Forward Chaining Inference ·
+          Knowledge Base: 18 IF-THEN Rules · 10 Dialogue Steps
+        </p>
+        <p class="text-[10px] text-slate-700 mt-1">
+          Built with vanilla JavaScript ES Modules · Tailwind CSS · Rule-based inference · No external AI APIs · Fully offline-capable
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.js?v=12"></script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+/* ============================================================
+   LapoFinder EU — Custom Styles (supplements Tailwind CDN)
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { font-family: 'Outfit', sans-serif; }
+
+/* ============================================================
+   Background Glow Orbs
+   ============================================================ */
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.glow-purple {
+  top: -10%;
+  left: 20%;
+  width: 500px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%);
+}
+
+.glow-cyan {
+  bottom: 10%;
+  right: 10%;
+  width: 400px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+}
+
+/* ============================================================
+   Gradient Text
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   Glass Card
+   ============================================================ */
+.glass-card {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ============================================================
+   Progress Dots
+   ============================================================ */
+.progress-dot {
+  height: 4px;
+  flex: 1;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.progress-dot.active {
+  background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+}
+
+/* ============================================================
+   Option Cards (Wizard)
+   ============================================================ */
+.option-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.option-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateX(3px);
+}
+
+.option-card.selected {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: #8b5cf6;
+  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.3);
+}
+
+/* ============================================================
+   Laptop Cards
+   ============================================================ */
+.laptop-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  animation: card-in 0.4s ease both;
+}
+
+.laptop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(139, 92, 246, 0.2);
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered animation delay for cards */
+.laptop-card:nth-child(1) { animation-delay: 0.05s; }
+.laptop-card:nth-child(2) { animation-delay: 0.10s; }
+.laptop-card:nth-child(3) { animation-delay: 0.15s; }
+.laptop-card:nth-child(4) { animation-delay: 0.20s; }
+.laptop-card:nth-child(5) { animation-delay: 0.25s; }
+.laptop-card:nth-child(6) { animation-delay: 0.30s; }
+.laptop-card:nth-child(7) { animation-delay: 0.35s; }
+.laptop-card:nth-child(8) { animation-delay: 0.40s; }
+.laptop-card:nth-child(9) { animation-delay: 0.45s; }
+
+/* ============================================================
+   Spec Items
+   ============================================================ */
+.spec-item {
+  min-width: 0;
+}
+
+.spec-item span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   Why Picked Details
+   ============================================================ */
+details summary::-webkit-details-marker { display: none; }
+details summary::marker { display: none; }
+
+details[open] .why-arrow {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+
+.why-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 10px;
+}
+
+/* ============================================================
+   Value Score Ring
+   ============================================================ */
+.value-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-width: 2px;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.score-green  { border-color: #34d399; color: #34d399; }
+.score-blue   { border-color: #60a5fa; color: #60a5fa; }
+.score-yellow { border-color: #fbbf24; color: #fbbf24; }
+.score-orange { border-color: #fb923c; color: #fb923c; }
+
+/* ============================================================
+   Buy Buttons
+   ============================================================ */
+.buy-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  text-align: center;
+}
+
+.buy-btn:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.buy-btn-mm:hover {
+  background: rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+/* ============================================================
+   Compare Toggle
+   ============================================================ */
+.compare-toggle {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+/* ============================================================
+   Compare Bar
+   ============================================================ */
+.slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+/* ============================================================
+   Compare Table
+   ============================================================ */
+.compare-table th, .compare-table td {
+  vertical-align: top;
+}
+
+/* ============================================================
+   Budget Input Shake Animation
+   ============================================================ */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.shake { animation: shake 0.35s ease; }
+
+/* ============================================================
+   Scrollbar (dark theme)
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* ============================================================
+   Market Ticker  — JS-driven RAF scroll (Bloomberg style)
+   ============================================================ */
+.ticker-track {
+  display: flex;
+  align-items: center;
+  will-change: transform;
+  /* No CSS animation — controlled by requestAnimationFrame in main.js */
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 16px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  white-space: nowrap;
+  height: 32px;
+  cursor: default;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.ticker-item:hover { background: rgba(255,255,255,0.04); }
+
+/* Brand label — small, muted, uppercase */
+.t-brand {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: #475569;
+  font-family: 'Outfit', monospace;
+  text-transform: uppercase;
+}
+
+/* Model name — white, slightly bold */
+.t-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Price — monospace cyan */
+.t-price {
+  font-size: 11px;
+  font-weight: 700;
+  color: #67e8f9;
+  font-family: 'Courier New', monospace;
+  letter-spacing: -.01em;
+}
+
+/* Change badge — Bloomberg pill */
+.t-change {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: .03em;
+  font-family: 'Courier New', monospace;
+}
+.t-up   { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+.t-down { background: rgba(239, 68, 68, 0.16);  color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+
+/* Hot / New mini badge */
+.t-tag {
+  font-size: 8px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.t-tag-hot { background: rgba(251,146,60,0.18); color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+.t-tag-new { background: rgba(139,92,246,0.22); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
+
+/* ============================================================
+   Trending Category Pills (hero) — market badge style
+   ============================================================ */
+@keyframes pillFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.trend-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.trend-pill {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  background: rgba(30,41,59,0.9) !important;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  animation: pillFadeIn 0.4s ease both;
+  text-decoration: none;
+  color: inherit;
+}
+.trend-pill:hover {
+  border-color: rgba(139,92,246,0.5) !important;
+  background: rgba(139,92,246,0.12) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px -4px rgba(139,92,246,0.3);
+}
+
+.pill-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+.pill-icon { font-size: 14px; line-height: 1; }
+
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: 'Courier New', monospace;
+  letter-spacing: .03em;
+  white-space: nowrap;
+}
+.pill-up  { background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+.pill-hot { background: rgba(251,146,60,0.18);  color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+.pill-new { background: rgba(139,92,246,0.22);  color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
+
+/* ============================================================
+   Hero live stats row
+   ============================================================ */
+@keyframes statPop {
+  0%   { opacity:0; transform: scale(0.8); }
+  70%  { transform: scale(1.05); }
+  100% { opacity:1; transform: scale(1); }
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: statPop 0.5s ease both;
+}
+
+/* ============================================================
+   Chat Expert System
+   ============================================================ */
+#chat-messages { scroll-behavior: smooth; }
+
+.chat-result-card {
+  animation: slideUp 0.25s ease;
+}
+
+.chat-qr-btn {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ============================================================
+   Favorites Button
+   ============================================================ */
+.fav-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.18s ease;
+}
+.fav-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: scale(1.1);
+}
+.fav-btn.fav-active {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+@keyframes favPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  70%  { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+.fav-pulse { animation: favPulse 0.38s ease; }
+
+/* ============================================================
+   Sparkline SVG
+   ============================================================ */
+.sparkline-svg {
+  display: inline-block;
+  vertical-align: middle;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   Price Flicker Animations (ticker)
+   ============================================================ */
+@keyframes priceUp {
+  0%   { color: #67e8f9; }
+  30%  { color: #34d399; background: rgba(52,211,153,0.15); }
+  100% { color: #67e8f9; background: transparent; }
+}
+@keyframes priceDown {
+  0%   { color: #67e8f9; }
+  30%  { color: #f87171; background: rgba(248,113,113,0.15); }
+  100% { color: #67e8f9; background: transparent; }
+}
+.price-up-flash   { animation: priceUp   0.6s ease; border-radius: 3px; }
+.price-down-flash { animation: priceDown 0.6s ease; border-radius: 3px; }
+
+/* ============================================================
+   What-If Slider
+   ============================================================ */
+#whatif-slider {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  outline: none;
+  border: none;
+}
+#whatif-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+}
+
+/* ============================================================
+   Toast Notification
+   ============================================================ */
+#app-toast {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Print / PDF Export
+   ============================================================ */
+@media print {
+  body { background: white !important; color: black !important; }
+  #ticker-bar, #chat-modal, #compare-bar, header,
+  .fav-btn, .buy-btn, .compare-toggle, label[class*="compare"],
+  button, #favorites-panel, .what-if-panel,
+  #wizard-section, footer { display: none !important; }
+  .glass-card { background: #f8fafc !important; border: 1px solid #e2e8f0 !important; }
+  .laptop-card { break-inside: avoid; page-break-inside: avoid; }
+  #results-section { display: block !important; padding: 0 !important; }
+  .gradient-text { -webkit-text-fill-color: #4f46e5 !important; }
+  .text-emerald-400 { color: #059669 !important; }
+  .text-slate-400 { color: #475569 !important; }
+  .text-slate-500 { color: #64748b !important; }
+  #results-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+}
+

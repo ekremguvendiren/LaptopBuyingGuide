@@ -1,0 +1,1257 @@
+/* ============================================================
+   LapoFinder EU — Custom Styles (supplements Tailwind CDN)
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { font-family: 'Outfit', sans-serif; }
+
+/* ============================================================
+   Background Glow Orbs
+   ============================================================ */
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.glow-purple {
+  top: -10%;
+  left: 20%;
+  width: 500px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%);
+}
+
+.glow-cyan {
+  bottom: 10%;
+  right: 10%;
+  width: 400px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, transparent 70%);
+}
+
+.glow-mid {
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+}
+
+/* ============================================================
+   Chat CTA Card (big homepage card)
+   ============================================================ */
+.chat-cta-card {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.4) 0%, rgba(8, 145, 178, 0.3) 100%);
+  padding: 1px;
+  box-shadow: 0 0 40px -8px rgba(124, 58, 237, 0.25);
+}
+
+/* ============================================================
+   How It Works Step Cards
+   ============================================================ */
+.how-step-card {
+  background: rgba(255,255,255,0.03);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.how-step-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ============================================================
+   Gradient Text
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   Glass Card
+   ============================================================ */
+.glass-card {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ============================================================
+   Progress Dots
+   ============================================================ */
+.progress-dot {
+  height: 4px;
+  flex: 1;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.progress-dot.active {
+  background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+}
+
+/* ============================================================
+   Option Cards (Wizard)
+   ============================================================ */
+.option-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.option-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateX(3px);
+}
+
+.option-card.selected {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: #8b5cf6;
+  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.3);
+}
+
+/* ============================================================
+   Laptop Cards
+   ============================================================ */
+.laptop-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  animation: card-in 0.4s ease both;
+}
+
+.laptop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(139, 92, 246, 0.2);
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered animation delay for cards */
+.laptop-card:nth-child(1) { animation-delay: 0.05s; }
+.laptop-card:nth-child(2) { animation-delay: 0.10s; }
+.laptop-card:nth-child(3) { animation-delay: 0.15s; }
+.laptop-card:nth-child(4) { animation-delay: 0.20s; }
+.laptop-card:nth-child(5) { animation-delay: 0.25s; }
+.laptop-card:nth-child(6) { animation-delay: 0.30s; }
+.laptop-card:nth-child(7) { animation-delay: 0.35s; }
+.laptop-card:nth-child(8) { animation-delay: 0.40s; }
+.laptop-card:nth-child(9) { animation-delay: 0.45s; }
+
+/* ============================================================
+   Spec Items
+   ============================================================ */
+.spec-item {
+  min-width: 0;
+}
+
+.spec-item span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   Why Picked Details
+   ============================================================ */
+details summary::-webkit-details-marker { display: none; }
+details summary::marker { display: none; }
+
+details[open] .why-arrow {
+  display: inline-block;
+  transform: rotate(90deg);
+}
+
+.why-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+  font-size: 10px;
+}
+
+/* ============================================================
+   Value Score Ring
+   ============================================================ */
+.value-ring {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-width: 2px;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.score-green  { border-color: #34d399; color: #34d399; }
+.score-blue   { border-color: #60a5fa; color: #60a5fa; }
+.score-yellow { border-color: #fbbf24; color: #fbbf24; }
+.score-orange { border-color: #fb923c; color: #fb923c; }
+
+/* ============================================================
+   Buy Buttons
+   ============================================================ */
+.buy-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  text-align: center;
+}
+
+.buy-btn:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.buy-btn-mm:hover {
+  background: rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+/* ============================================================
+   Compare Toggle
+   ============================================================ */
+.compare-toggle {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+/* ============================================================
+   Compare Bar
+   ============================================================ */
+.slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);   opacity: 1; }
+}
+
+/* ============================================================
+   Compare Table
+   ============================================================ */
+.compare-table th, .compare-table td {
+  vertical-align: top;
+}
+
+/* ============================================================
+   Budget Input Shake Animation
+   ============================================================ */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.shake { animation: shake 0.35s ease; }
+
+/* ============================================================
+   Scrollbar (dark theme)
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.03); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* ============================================================
+   Market Ticker  — JS-driven RAF scroll (Bloomberg style)
+   ============================================================ */
+.ticker-track {
+  display: flex;
+  align-items: center;
+  will-change: transform;
+  /* No CSS animation — controlled by requestAnimationFrame in main.js */
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 16px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  white-space: nowrap;
+  height: 32px;
+  cursor: default;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.ticker-item:hover { background: rgba(255,255,255,0.04); }
+
+/* Brand label — small, muted, uppercase */
+.t-brand {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: #475569;
+  font-family: 'Outfit', monospace;
+  text-transform: uppercase;
+}
+
+/* Model name — white, slightly bold */
+.t-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Price — monospace cyan */
+.t-price {
+  font-size: 11px;
+  font-weight: 700;
+  color: #67e8f9;
+  font-family: 'Courier New', monospace;
+  letter-spacing: -.01em;
+}
+
+/* Change badge — Bloomberg pill */
+.t-change {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: .03em;
+  font-family: 'Courier New', monospace;
+}
+.t-up   { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+.t-down { background: rgba(239, 68, 68, 0.16);  color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+
+/* Hot / New mini badge */
+.t-tag {
+  font-size: 8px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.t-tag-hot { background: rgba(251,146,60,0.18); color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+.t-tag-new { background: rgba(139,92,246,0.22); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
+
+/* ============================================================
+   Trending Category Pills (hero) — market badge style
+   ============================================================ */
+@keyframes pillFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.trend-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.trend-pill {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  background: rgba(30,41,59,0.9) !important;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  animation: pillFadeIn 0.4s ease both;
+  text-decoration: none;
+  color: inherit;
+}
+.trend-pill:hover {
+  border-color: rgba(139,92,246,0.5) !important;
+  background: rgba(139,92,246,0.12) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px -4px rgba(139,92,246,0.3);
+}
+
+.pill-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+.pill-icon { font-size: 14px; line-height: 1; }
+
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: 'Courier New', monospace;
+  letter-spacing: .03em;
+  white-space: nowrap;
+}
+.pill-up  { background: rgba(16,185,129,0.18); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+.pill-hot { background: rgba(251,146,60,0.18);  color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+.pill-new { background: rgba(139,92,246,0.22);  color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
+
+/* ============================================================
+   Hero live stats row
+   ============================================================ */
+@keyframes statPop {
+  0%   { opacity:0; transform: scale(0.8); }
+  70%  { transform: scale(1.05); }
+  100% { opacity:1; transform: scale(1); }
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: statPop 0.5s ease both;
+}
+
+/* ============================================================
+   Chat Expert System
+   ============================================================ */
+#chat-messages { scroll-behavior: smooth; }
+
+.chat-result-card {
+  animation: slideUp 0.25s ease;
+}
+
+.chat-qr-btn {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ============================================================
+   Favorites Button
+   ============================================================ */
+.fav-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.18s ease;
+}
+.fav-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: scale(1.1);
+}
+.fav-btn.fav-active {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+@keyframes favPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  70%  { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+.fav-pulse { animation: favPulse 0.38s ease; }
+
+/* ============================================================
+   Sparkline SVG
+   ============================================================ */
+.sparkline-svg {
+  display: inline-block;
+  vertical-align: middle;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   Price Flicker Animations (ticker)
+   ============================================================ */
+@keyframes priceUp {
+  0%   { color: #67e8f9; }
+  30%  { color: #34d399; background: rgba(52,211,153,0.15); }
+  100% { color: #67e8f9; background: transparent; }
+}
+@keyframes priceDown {
+  0%   { color: #67e8f9; }
+  30%  { color: #f87171; background: rgba(248,113,113,0.15); }
+  100% { color: #67e8f9; background: transparent; }
+}
+.price-up-flash   { animation: priceUp   0.6s ease; border-radius: 3px; }
+.price-down-flash { animation: priceDown 0.6s ease; border-radius: 3px; }
+
+/* ============================================================
+   What-If Slider
+   ============================================================ */
+#whatif-slider {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  outline: none;
+  border: none;
+}
+#whatif-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+}
+
+/* ============================================================
+   Toast Notification
+   ============================================================ */
+#app-toast {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Header Rule Ticker — animated IF-THEN rules in header center
+   ============================================================ */
+
+/* Hide on mobile, show from 768px up */
+#rule-ticker-wrap {
+  display: none;
+}
+@media (min-width: 768px) {
+  #rule-ticker-wrap {
+    display: flex;
+  }
+}
+
+.rule-engine-label {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #4c1d95;
+  background: rgba(139,92,246,0.18);
+  border: 1px solid rgba(139,92,246,0.3);
+  border-radius: 4px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.rule-tick-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+@keyframes ruleTickIn {
+  from { opacity: 0; transform: translateY(9px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+@keyframes ruleTickOut {
+  from { opacity: 1; transform: translateY(0);    }
+  to   { opacity: 0; transform: translateY(-9px); }
+}
+
+.rule-tick-in  { animation: ruleTickIn  0.38s cubic-bezier(0.22,1,0.36,1) forwards; }
+.rule-tick-out { animation: ruleTickOut 0.30s ease forwards; }
+
+.rule-num {
+  font-size: 9px;
+  font-weight: 900;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(139,92,246,0.18);
+  border: 1px solid rgba(139,92,246,0.28);
+  color: #a78bfa;
+  font-family: 'Courier New', monospace;
+  flex-shrink: 0;
+  letter-spacing: .03em;
+}
+.rule-kw {
+  font-size: 10px;
+  font-weight: 800;
+  color: #6d28d9;
+  font-family: 'Courier New', monospace;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.rule-cond {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8b5cf6;
+  font-family: 'Courier New', monospace;
+}
+.rule-arrow {
+  font-size: 11px;
+  color: #334155;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.rule-then {
+  font-size: 11px;
+  font-weight: 700;
+  color: #06b6d4;
+  font-family: 'Courier New', monospace;
+}
+
+/* Light mode */
+body.light-mode .rule-engine-label {
+  background: rgba(109,40,217,0.10) !important;
+  border-color: rgba(109,40,217,0.2) !important;
+  color: #5b21b6 !important;
+}
+body.light-mode .rule-num   { background: rgba(109,40,217,0.10) !important; border-color: rgba(109,40,217,0.2) !important; color: #6d28d9 !important; }
+body.light-mode .rule-kw    { color: #5b21b6 !important; }
+body.light-mode .rule-cond  { color: #6d28d9 !important; }
+body.light-mode .rule-arrow { color: #64748b !important; }
+body.light-mode .rule-then  { color: #0891b2 !important; }
+
+/* ============================================================
+   Category Pills — Single Row (Hero)
+   ============================================================ */
+.pills-single-row {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 8px;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  justify-content: flex-start;
+}
+.pills-single-row::-webkit-scrollbar { display: none; }
+
+.cpill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1.5px solid;
+  transition: all 0.18s ease;
+  background: transparent;
+  font-family: 'Outfit', sans-serif;
+}
+.cpill span {
+  font-size: 10px;
+  font-weight: 800;
+  font-family: 'Courier New', monospace;
+  opacity: 0.8;
+}
+.cpill-gaming { background: rgba(239,68,68,0.12);   border-color: rgba(239,68,68,0.4);   color: #fca5a5; }
+.cpill-dev    { background: rgba(59,130,246,0.12);  border-color: rgba(59,130,246,0.4);  color: #93c5fd; }
+.cpill-mac    { background: rgba(148,163,184,0.12); border-color: rgba(148,163,184,0.3); color: #cbd5e1; }
+.cpill-travel { background: rgba(16,185,129,0.12);  border-color: rgba(16,185,129,0.4);  color: #6ee7b7; }
+.cpill-sec    { background: rgba(245,158,11,0.12);  border-color: rgba(245,158,11,0.4);  color: #fcd34d; }
+.cpill-create { background: rgba(139,92,246,0.15);  border-color: rgba(139,92,246,0.5);  color: #c4b5fd; }
+.cpill:hover  { transform: translateY(-2px) scale(1.04); filter: brightness(1.2); }
+
+/* ============================================================
+   Laptop Hero Cards (floating image mockups — desktop right col)
+   ============================================================ */
+.laptop-hero-card {
+  background: rgba(15,23,42,0.85);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.laptop-hero-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 30px 60px -12px rgba(0,0,0,0.7), 0 0 30px -8px rgba(139,92,246,0.25);
+}
+.lhc-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  background: #0f172a;
+}
+.lhc-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.lhc-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(15,23,42,0.85) 100%);
+}
+.lhc-score-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  font-family: 'Courier New', monospace;
+  background: rgba(15,23,42,0.85);
+  border: 1px solid rgba(139,92,246,0.5);
+  color: #a78bfa;
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(6px);
+}
+.lhc-info {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lhc-brand {
+  font-size: 9px;
+  font-weight: 800;
+  color: #475569;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.lhc-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1.2;
+}
+.lhc-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: #67e8f9;
+  font-family: 'Courier New', monospace;
+  margin-top: 1px;
+}
+.lhc-match {
+  font-size: 10px;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-top: 1px;
+}
+.lhc-specs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.lhc-spec-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #94a3b8;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Featured Laptops Strip (homepage)
+   ============================================================ */
+.featured-card {
+  background: rgba(15,23,42,0.7);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+}
+.featured-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139,92,246,0.35);
+  box-shadow: 0 16px 40px -12px rgba(0,0,0,0.5), 0 0 20px -6px rgba(139,92,246,0.15);
+}
+.featured-card-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background: #0f172a;
+}
+.featured-card-body { padding: 10px 12px 12px; }
+.featured-card-brand {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #475569;
+}
+.featured-card-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+.featured-card-price {
+  font-size: 13px;
+  font-weight: 800;
+  color: #34d399;
+  font-family: 'Courier New', monospace;
+  margin-top: 3px;
+}
+.featured-card-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 7px;
+}
+.spec-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #94a3b8;
+  background: rgba(255,255,255,0.04);
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+}
+.spec-badge-cpu { border-color: rgba(139,92,246,0.3); color: #c4b5fd; background: rgba(139,92,246,0.08); }
+.spec-badge-ram { border-color: rgba(6,182,212,0.3);  color: #67e8f9; background: rgba(6,182,212,0.08);  }
+.spec-badge-bat { border-color: rgba(34,197,94,0.3);  color: #86efac; background: rgba(34,197,94,0.08);  }
+.spec-badge-cat { border-color: rgba(251,191,36,0.3); color: #fde68a; background: rgba(251,191,36,0.08); }
+.featured-match-bar {
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255,255,255,0.06);
+  margin-top: 8px;
+  overflow: hidden;
+}
+.featured-match-fill {
+  height: 100%;
+  border-radius: 1px;
+  background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+}
+
+/* ============================================================
+   Market News / Price Signals Cards
+   ============================================================ */
+.news-card {
+  border-radius: 12px;
+  padding: 12px 14px;
+  border: 1px solid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+.news-card:hover {
+  transform: translateY(-2px);
+}
+.news-card-up {
+  background: rgba(239,68,68,0.06);
+  border-color: rgba(239,68,68,0.18);
+}
+.news-card-down {
+  background: rgba(16,185,129,0.06);
+  border-color: rgba(16,185,129,0.18);
+}
+.news-card-neutral {
+  background: rgba(245,158,11,0.06);
+  border-color: rgba(245,158,11,0.18);
+}
+.news-card-up:hover    { box-shadow: 0 8px 24px -6px rgba(239,68,68,0.15); }
+.news-card-down:hover  { box-shadow: 0 8px 24px -6px rgba(16,185,129,0.15); }
+.news-card-neutral:hover { box-shadow: 0 8px 24px -6px rgba(245,158,11,0.12); }
+
+.news-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.news-impact {
+  font-size: 9px;
+  font-weight: 900;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: .04em;
+}
+.news-impact-up      { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+.news-impact-down    { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
+.news-impact-neutral { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+
+.news-time {
+  font-size: 9px;
+  color: #475569;
+  font-family: 'Courier New', monospace;
+}
+.news-headline {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+.news-body {
+  font-size: 10px;
+  color: #64748b;
+  line-height: 1.55;
+  margin-bottom: 7px;
+}
+.news-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.news-source {
+  font-size: 9px;
+  color: #475569;
+  font-style: italic;
+}
+.news-tag {
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: .04em;
+}
+.news-tag-up      { background: rgba(239,68,68,0.12);  color: #f87171; }
+.news-tag-down    { background: rgba(16,185,129,0.12); color: #34d399; }
+.news-tag-neutral { background: rgba(245,158,11,0.12); color: #fbbf24; }
+
+/* ============================================================
+   Light Mode
+   ============================================================ */
+body.light-mode {
+  background: #eef2f7 !important;
+  color: #0f172a !important;
+}
+
+/* Header */
+body.light-mode header {
+  background: rgba(255,255,255,0.94) !important;
+  border-color: rgba(0,0,0,0.07) !important;
+}
+
+/* Ticker */
+body.light-mode #ticker-bar {
+  background: rgba(248,250,252,0.97) !important;
+  border-color: rgba(0,0,0,0.07) !important;
+}
+body.light-mode .t-name  { color: #334155 !important; }
+body.light-mode .t-brand { color: #94a3b8 !important; }
+
+/* Glow orbs — softer */
+body.light-mode .glow-purple {
+  background: radial-gradient(circle, rgba(139,92,246,0.09) 0%, transparent 70%) !important;
+}
+body.light-mode .glow-cyan {
+  background: radial-gradient(circle, rgba(6,182,212,0.09) 0%, transparent 70%) !important;
+}
+
+/* Text colours */
+body.light-mode .text-slate-100,
+body.light-mode .text-slate-200,
+body.light-mode .text-slate-300 { color: #1e293b !important; }
+body.light-mode .text-slate-400  { color: #475569 !important; }
+body.light-mode .text-slate-500,
+body.light-mode .text-slate-600  { color: #64748b !important; }
+body.light-mode .text-slate-700  { color: #475569 !important; }
+/* Keep gradient text working in light mode */
+body.light-mode .gradient-text {
+  background: linear-gradient(135deg, #7c3aed 0%, #0891b2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+/* violet-300 badge on hero */
+body.light-mode .text-violet-300 { color: #6d28d9 !important; }
+body.light-mode .text-violet-400 { color: #7c3aed !important; }
+/* Keep stat numbers vivid */
+body.light-mode .text-cyan-400   { color: #0891b2 !important; }
+body.light-mode .text-emerald-400 { color: #059669 !important; }
+body.light-mode .text-amber-400  { color: #d97706 !important; }
+/* Heading text on hero (no explicit color class) */
+body.light-mode h1 { color: #0f172a !important; }
+
+/* Glass cards */
+body.light-mode .glass-card {
+  background: rgba(255,255,255,0.90) !important;
+  border-color: rgba(0,0,0,0.07) !important;
+}
+
+/* Step card (wizard) */
+body.light-mode #step-card {
+  background: rgba(255,255,255,0.95) !important;
+  border-color: rgba(0,0,0,0.07) !important;
+}
+body.light-mode #budget-input { color: #1e293b !important; }
+
+/* Option cards */
+body.light-mode .option-card {
+  background: rgba(0,0,0,0.03) !important;
+  border-color: rgba(0,0,0,0.09) !important;
+  color: #1e293b !important;
+}
+body.light-mode .option-card:hover {
+  background: rgba(139,92,246,0.08) !important;
+  border-color: rgba(139,92,246,0.4) !important;
+}
+body.light-mode .option-card.selected {
+  background: rgba(139,92,246,0.12) !important;
+  border-color: #8b5cf6 !important;
+}
+body.light-mode .option-card .text-slate-500 { color: #64748b !important; }
+
+/* How-it-works cards */
+body.light-mode .how-step-card {
+  background: rgba(0,0,0,0.03) !important;
+}
+body.light-mode .how-step-card:hover {
+  background: rgba(0,0,0,0.05) !important;
+}
+
+/* Category pills */
+body.light-mode .cpill-gaming { background: rgba(239,68,68,0.09)  !important; border-color: rgba(239,68,68,0.35)   !important; color: #dc2626 !important; }
+body.light-mode .cpill-dev    { background: rgba(59,130,246,0.09) !important; border-color: rgba(59,130,246,0.35)  !important; color: #2563eb !important; }
+body.light-mode .cpill-mac    { background: rgba(100,116,139,0.09)!important; border-color: rgba(100,116,139,0.25) !important; color: #475569 !important; }
+body.light-mode .cpill-travel { background: rgba(16,185,129,0.09) !important; border-color: rgba(16,185,129,0.35)  !important; color: #059669 !important; }
+body.light-mode .cpill-sec    { background: rgba(245,158,11,0.09) !important; border-color: rgba(245,158,11,0.35)  !important; color: #d97706 !important; }
+body.light-mode .cpill-create { background: rgba(139,92,246,0.10) !important; border-color: rgba(139,92,246,0.40)  !important; color: #7c3aed !important; }
+
+/* Laptop hero cards */
+body.light-mode .laptop-hero-card {
+  background: rgba(255,255,255,0.95) !important;
+  border-color: rgba(0,0,0,0.09) !important;
+  box-shadow: 0 12px 30px -8px rgba(0,0,0,0.12) !important;
+}
+body.light-mode .lhc-brand { color: #94a3b8 !important; }
+body.light-mode .lhc-name  { color: #1e293b !important; }
+body.light-mode .lhc-spec-badge { background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.08) !important; color: #64748b !important; }
+body.light-mode .lhc-img-overlay { background: linear-gradient(to bottom, transparent 40%, rgba(255,255,255,0.85) 100%) !important; }
+body.light-mode .lhc-score-badge { background: rgba(255,255,255,0.92) !important; }
+
+/* Featured cards */
+body.light-mode .featured-card {
+  background: rgba(255,255,255,0.90) !important;
+  border-color: rgba(0,0,0,0.07) !important;
+}
+body.light-mode .featured-card-name  { color: #1e293b !important; }
+body.light-mode .featured-card-brand { color: #94a3b8 !important; }
+body.light-mode .spec-badge { background: rgba(0,0,0,0.04) !important; border-color: rgba(0,0,0,0.08) !important; color: #64748b !important; }
+body.light-mode .spec-badge-cpu { color: #7c3aed !important; background: rgba(139,92,246,0.06) !important; }
+body.light-mode .spec-badge-ram { color: #0891b2 !important; background: rgba(6,182,212,0.06) !important; }
+body.light-mode .spec-badge-bat { color: #059669 !important; background: rgba(16,185,129,0.06) !important; }
+body.light-mode .spec-badge-cat { color: #b45309 !important; background: rgba(245,158,11,0.06) !important; }
+
+/* ── Ticker bar ── */
+body.light-mode #ticker-bar {
+  background: #f0f4f8 !important;
+  background-color: #f0f4f8 !important;
+  --tw-bg-opacity: 1 !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+/* Ticker left/right fade masks (from-slate-950 → light) */
+body.light-mode #ticker-bar .bg-gradient-to-r {
+  background-image: linear-gradient(to right, #f0f4f8, transparent) !important;
+}
+body.light-mode #ticker-bar .bg-gradient-to-l {
+  background-image: linear-gradient(to left, #f0f4f8, transparent) !important;
+}
+
+/* ── Wizard step card — budget input wrapper (bg-slate-800/60) ── */
+body.light-mode #step-content [class*="bg-slate-8"],
+body.light-mode #step-content [class*="bg-slate-7"] {
+  background: rgba(226,232,240,0.85) !important;
+  border-color: rgba(0,0,0,0.10) !important;
+  color: #1e293b !important;
+}
+
+/* ── Chat modal — ALL JS-generated dark bubbles ── */
+/* Bot message bubbles */
+body.light-mode #chat-messages [class*="bg-slate-8"],
+body.light-mode #chat-messages [class*="bg-slate-9"] {
+  background: #e4eaf2 !important;
+  border-color: rgba(0,0,0,0.07) !important;
+  color: #1e293b !important;
+}
+body.light-mode #chat-messages [class*="text-slate-2"] { color: #334155 !important; }
+/* User bubble */
+body.light-mode #chat-messages [class*="bg-violet-6"] {
+  background: rgba(109,40,217,0.18) !important;
+  color: #3b0764 !important;
+}
+/* Quick reply buttons */
+body.light-mode #chat-quick-replies button,
+body.light-mode #chat-quick-replies [class*="bg-slate-7"] {
+  background: #dde5f0 !important;
+  border-color: rgba(0,0,0,0.10) !important;
+  color: #334155 !important;
+}
+body.light-mode #chat-quick-replies button:hover {
+  background: rgba(109,40,217,0.15) !important;
+  border-color: rgba(109,40,217,0.35) !important;
+  color: #3b0764 !important;
+}
+/* Restart chat button */
+body.light-mode #chat-messages [class*="bg-slate-7"] {
+  background: #dde5f0 !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  color: #334155 !important;
+}
+/* Result cards in chat */
+body.light-mode .chat-result-card,
+body.light-mode #chat-messages [class*="bg-slate-9"] {
+  background: #f0f4f8 !important;
+  border-color: rgba(0,0,0,0.08) !important;
+}
+/* Laptop image placeholder inside chat result */
+body.light-mode #chat-messages [class*="bg-slate-8\/6"] {
+  background: #e2e8f0 !important;
+}
+/* bd-state-card (knowledge base mini panel) */
+body.light-mode .bd-state-card {
+  background: rgba(240,244,248,0.95) !important;
+  border-color: rgba(109,40,217,0.2) !important;
+  color: #334155 !important;
+}
+body.light-mode .bd-fact { color: #059669 !important; }
+body.light-mode .bd-rule { color: #6d28d9 !important; }
+/* Text-white inside chat messages */
+body.light-mode #chat-messages .text-white,
+body.light-mode #chat-messages [class*="text-white"] { color: #1e293b !important; }
+body.light-mode #chat-messages .text-slate-200 { color: #334155 !important; }
+body.light-mode #chat-messages .text-slate-500 { color: #64748b !important; }
+/* Score bars background */
+body.light-mode #chat-messages [class*="bg-slate-7"][class*="rounded-full"] {
+  background: #cbd5e1 !important;
+}
+
+/* Chat CTA — outer container */
+body.light-mode .chat-cta-card > div {
+  background: rgba(255,255,255,0.98) !important;
+}
+/* "Chat with the Expert System" title (text-white → dark) */
+body.light-mode .chat-cta-card p,
+body.light-mode .chat-cta-card span {
+  color: inherit;
+}
+body.light-mode .chat-cta-card .text-white,
+body.light-mode .chat-cta-card .text-slate-200,
+body.light-mode .chat-cta-card .text-slate-400 {
+  color: #334155 !important;
+}
+/* Bot message bubbles inside the chat preview (dark slate bg → soft light) */
+body.light-mode .chat-cta-card .space-y-2 > div:not([class*="flex-row-reverse"]) > div:last-child {
+  background: #eef2f7 !important;
+  border-color: rgba(0,0,0,0.07) !important;
+  color: #334155 !important;
+}
+/* User reply bubble (violet-200 text → readable dark violet) */
+body.light-mode .chat-cta-card .space-y-2 > div[class*="flex-row-reverse"] > div:last-child {
+  background: rgba(139,92,246,0.12) !important;
+  border-color: rgba(139,92,246,0.35) !important;
+  color: #5b21b6 !important;
+}
+/* User avatar bubble */
+body.light-mode .chat-cta-card .bg-slate-700 {
+  background: #cbd5e1 !important;
+}
+/* Chat modal */
+body.light-mode #chat-modal > div > div {
+  background: #f8fafc !important;
+}
+/* Chat modal header and message area */
+body.light-mode #chat-modal .bg-slate-900\/80 {
+  background: rgba(248,250,252,0.95) !important;
+}
+body.light-mode #chat-modal .bg-slate-800 {
+  background: #e8eef4 !important;
+  color: #1e293b !important;
+}
+body.light-mode #chat-input {
+  background: #e8eef4 !important;
+  color: #1e293b !important;
+  border-color: rgba(0,0,0,0.1) !important;
+}
+body.light-mode #chat-input::placeholder { color: #94a3b8 !important; }
+/* Chat info side panel */
+body.light-mode #chat-modal .bg-slate-900\/60 {
+  background: rgba(241,245,249,0.95) !important;
+}
+body.light-mode #chat-modal .bg-slate-800\/60 {
+  background: rgba(226,232,240,0.8) !important;
+  border-color: rgba(0,0,0,0.06) !important;
+}
+
+/* Buy buttons */
+body.light-mode .buy-btn {
+  background: rgba(0,0,0,0.04) !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  color: #334155 !important;
+}
+
+/* Results section */
+body.light-mode #sort-select {
+  background: rgba(255,255,255,0.9) !important;
+  color: #1e293b !important;
+  border-color: rgba(0,0,0,0.10) !important;
+}
+
+/* Footer */
+body.light-mode footer {
+  background: rgba(241,245,249,0.92) !important;
+  border-color: rgba(0,0,0,0.06) !important;
+}
+body.light-mode footer p { color: #94a3b8 !important; }
+
+/* Scrollbar */
+body.light-mode ::-webkit-scrollbar-track { background: rgba(0,0,0,0.03) !important; }
+body.light-mode ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12) !important; }
+
+/* News / Price Signals cards */
+body.light-mode .news-card-up      { background: rgba(239,68,68,0.05) !important;  border-color: rgba(239,68,68,0.15) !important; }
+body.light-mode .news-card-down    { background: rgba(16,185,129,0.05) !important; border-color: rgba(16,185,129,0.15) !important; }
+body.light-mode .news-card-neutral { background: rgba(245,158,11,0.05) !important; border-color: rgba(245,158,11,0.15) !important; }
+body.light-mode .news-headline { color: #1e293b !important; }
+body.light-mode .news-body     { color: #64748b !important; }
+body.light-mode .news-time     { color: #94a3b8 !important; }
+body.light-mode .news-source   { color: #94a3b8 !important; }
+
+/* ============================================================
+   Print / PDF Export
+   ============================================================ */
+@media print {
+  body { background: white !important; color: black !important; }
+  #ticker-bar, #chat-modal, #compare-bar, header,
+  .fav-btn, .buy-btn, .compare-toggle, label[class*="compare"],
+  button, #favorites-panel, .what-if-panel,
+  #wizard-section, footer { display: none !important; }
+  .glass-card { background: #f8fafc !important; border: 1px solid #e2e8f0 !important; }
+  .laptop-card { break-inside: avoid; page-break-inside: avoid; }
+  #results-section { display: block !important; padding: 0 !important; }
+  .gradient-text { -webkit-text-fill-color: #4f46e5 !important; }
+  .text-emerald-400 { color: #059669 !important; }
+  .text-slate-400 { color: #475569 !important; }
+  .text-slate-500 { color: #64748b !important; }
+  #results-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+}
+
